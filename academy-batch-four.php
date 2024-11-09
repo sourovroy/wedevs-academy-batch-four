@@ -15,9 +15,13 @@ class ABFP_Academy_Batch_Four_Plugin {
 	private static $instance = null;
 
 	private function __construct() {
-		add_filter( 'the_content', array( $this, 'academy_the_content' ) );
+		// add_filter( 'the_content', array( $this, 'academy_the_content' ) );
 
-		add_action( 'wp_footer', 'ABFP_Academy_Batch_Four_Plugin::wp_footer' );
+		// add_action( 'wp_footer', 'ABFP_Academy_Batch_Four_Plugin::wp_footer' );
+
+		$this->define_constants();
+
+		$this->load_classes();
 	}
 
 	public static function get_instance() {
@@ -51,17 +55,30 @@ class ABFP_Academy_Batch_Four_Plugin {
 
 		echo $new_content;
 	}
+
+	private function load_classes() {
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Admin_Menu.php';
+
+		new ABFP_Admin_Menu();
+	}
+
+	private function define_constants() {
+		define( 'ABFP_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
+	}
 }
 
 ABFP_Academy_Batch_Four_Plugin::get_instance();
 
+add_filter( 'show_page_content_qr_code', function( $is_show ) {
+	return true;
+}, 11 );
 
 // Another Plugin
 add_filter( 'show_page_content_qr_code', function( $is_show ) {
 	$is_show = false;
 
 	return $is_show;
-} );
+}, 10 );
 
 function abfp_before_footer_qr_code() {
 	?>
@@ -71,11 +88,11 @@ function abfp_before_footer_qr_code() {
 
 add_action( 'before_footer_qr_code', 'abfp_before_footer_qr_code', 20 );
 
-remove_action( 'before_footer_qr_code', 'abfp_before_footer_qr_code', 20 );
+// remove_action( 'before_footer_qr_code', 'abfp_before_footer_qr_code', 20 );
 
 function abfp2_before_footer_qr_code() {
 	?>
 	<p>This is before QR Code extra.</p>
 	<?php
 }
-add_action( 'before_footer_qr_code', 'abfp2_before_footer_qr_code', 20 );
+add_action( 'before_footer_qr_code', 'abfp2_before_footer_qr_code', 21 );
