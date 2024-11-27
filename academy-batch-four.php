@@ -58,8 +58,11 @@ class ABFP_Academy_Batch_Four_Plugin {
 
 	private function load_classes() {
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Admin_Menu.php';
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Custom_Columns.php';
 
 		new ABFP_Admin_Menu();
+
+		new Custom_Columns();
 	}
 
 	private function define_constants() {
@@ -68,31 +71,3 @@ class ABFP_Academy_Batch_Four_Plugin {
 }
 
 ABFP_Academy_Batch_Four_Plugin::get_instance();
-
-add_filter( 'show_page_content_qr_code', function( $is_show ) {
-	return true;
-}, 11 );
-
-// Another Plugin
-add_filter( 'show_page_content_qr_code', function( $is_show ) {
-	$is_show = false;
-
-	return $is_show;
-}, 10 );
-
-function abfp_before_footer_qr_code() {
-	?>
-	<p>This is before QR Code.</p>
-	<?php
-}
-
-add_action( 'before_footer_qr_code', 'abfp_before_footer_qr_code', 20 );
-
-// remove_action( 'before_footer_qr_code', 'abfp_before_footer_qr_code', 20 );
-
-function abfp2_before_footer_qr_code() {
-	?>
-	<p>This is before QR Code extra.</p>
-	<?php
-}
-add_action( 'before_footer_qr_code', 'abfp2_before_footer_qr_code', 21 );
