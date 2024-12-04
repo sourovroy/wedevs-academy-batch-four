@@ -10,6 +10,8 @@ class ABFP_Post_type {
 		add_action( 'quick_edit_custom_box' , array( $this, 'quick_edit_custom_box' ), 10, 2 );
 
 		add_action( 'save_post_book' , array( $this, 'save_post_book' ), 10, 2 );
+
+		add_filter( 'the_content', array( $this, 'category_contents' ) );
 	}
 
 	public function init() {
@@ -38,6 +40,24 @@ class ABFP_Post_type {
 				'item_published' => 'Book Published',
 				'item_updated' => 'Book Updated',
 			),
+		) );
+
+		register_taxonomy( 'book_category', 'book', array(
+			'labels' => array(
+				'name' => 'Categories',
+				'singular_name' => 'Category',
+			),
+			'show_in_rest' => true,
+			'hierarchical' => true,
+		) );
+
+		register_taxonomy( 'book_tag', 'book', array(
+			'labels' => array(
+				'name' => 'Tags',
+				'singular_name' => 'Tag',
+			),
+			'show_in_rest' => true,
+			'hierarchical' => false,
 		) );
 	}
 
@@ -84,5 +104,50 @@ class ABFP_Post_type {
 			update_post_meta( $post_id, '_post_something', $_POST['post_something'] );
 		}
 
+	}
+
+	public function category_contents( $content ) {
+		// If is the not single post page.
+		if ( ! is_book() ) {
+			return $content;
+		}
+
+		global $post;
+
+		$book_categories = wp_get_post_terms( $post->ID, 'book_category' );
+		$cat_count = count( $book_categories );
+		$book_tags = wp_get_post_terms( $post->ID, 'book_tag' );
+		$tags_count = count( $book_tags );
+		ob_start();
+		?>
+		<p>
+			<strong>Categories:</strong>
+			<?php foreach ( $book_categories as $index => $book_category ) : ?>
+				<?php
+					echo $book_category->name;
+
+					if ( ($index + 1) != $cat_count ) {
+						echo ',';
+					}
+				?>
+			<?php endforeach; ?>
+		</p>
+		<p>
+			<strong>Tags:</strong>
+			<?php foreach ( $book_tags as $index => $book_tag ) : ?>
+				<a href="<?php echo get_term_link( $book_tag ); ?>">
+					<?php echo $book_tag->name; ?>
+				</a>
+				<?php
+					if ( ($index + 1) != $tags_count ) {
+						echo ',';
+					}
+				?>
+			<?php endforeach; ?>
+		</p>
+		<?php
+		$content .= ob_get_clean();
+
+		return $content;
 	}
 }

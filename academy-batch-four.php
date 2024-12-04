@@ -57,6 +57,7 @@ class ABFP_Academy_Batch_Four_Plugin {
 	}
 
 	private function load_classes() {
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/helpers.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Admin_Menu.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Custom_Columns.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Post_type.php';
