@@ -12,6 +12,9 @@ class ABFP_Post_type {
 		add_action( 'save_post_book' , array( $this, 'save_post_book' ), 10, 2 );
 
 		add_filter( 'the_content', array( $this, 'category_contents' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'save_post_book' , array( $this, 'save_post_book_metabox' ), 10, 2 );
 	}
 
 	public function init() {
@@ -149,5 +152,43 @@ class ABFP_Post_type {
 		$content .= ob_get_clean();
 
 		return $content;
+	}
+
+	public function add_meta_boxes() {
+		add_meta_box(
+			'abfp-custom-meta-box',
+			'Our Custom Metabox',
+			array( $this, 'custom_meta_box_callback' ),
+			array('post', 'book' ),
+		);
+	}
+
+	public function custom_meta_box_callback( $post ) {
+		$abfp_descrioption = get_post_meta( $post->ID, 'abfp_descrioption', true );
+		$abfp_choose_one = get_post_meta( $post->ID, 'abfp_choose_one', true );
+		?>
+		<p>
+			<label for="">Description:</label>
+			<input type="text" name="abfp_descrioption" value="<?php echo $abfp_descrioption ? $abfp_descrioption : '' ?>">
+		</p>
+		<p>
+			<label for="">Choose any one</label>
+			<select name="abfp_choose_one" id="">
+				<option value="1" <?php selected( $abfp_choose_one, '1' ); ?>>1</option>
+				<option value="2" <?php selected( '2', $abfp_choose_one ); ?>>2</option>
+				<option value="3" <?php selected( '3', $abfp_choose_one ); ?>>3</option>
+			</select>
+		</p>
+		<?php
+	}
+
+	public function save_post_book_metabox( $post_id ) {
+		if ( isset( $_POST['abfp_descrioption'] ) ) {
+			update_post_meta( $post_id, 'abfp_descrioption', $_POST['abfp_descrioption'] );
+		}
+
+		if ( isset( $_POST['abfp_choose_one'] ) ) {
+			update_post_meta( $post_id, 'abfp_choose_one', $_POST['abfp_choose_one'] );
+		}
 	}
 }
