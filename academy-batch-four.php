@@ -62,11 +62,13 @@ class ABFP_Academy_Batch_Four_Plugin {
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Custom_Columns.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Post_type.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Metabox.php';
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Book_Reader.php';
 
 		// new ABFP_Admin_Menu();
 		// new Custom_Columns();
-		new ABFP_Post_type();
-		new ABFP_Metabox();
+		// new ABFP_Post_type();
+		// new ABFP_Metabox();
+		new ABFP_Book_Reader();
 	}
 
 	private function define_constants() {
