@@ -63,16 +63,22 @@ class ABFP_Academy_Batch_Four_Plugin {
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Post_type.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Metabox.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Book_Reader.php';
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Enqueue.php';
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Shortcode.php';
 
 		// new ABFP_Admin_Menu();
 		// new Custom_Columns();
 		// new ABFP_Post_type();
 		// new ABFP_Metabox();
 		new ABFP_Book_Reader();
+
+		new ABFP_Enqueue();
+		new ABFP_Shortcode();
 	}
 
 	private function define_constants() {
 		define( 'ABFP_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
+		define( 'ABFP_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 	}
 }
 
