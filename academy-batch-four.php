@@ -70,9 +70,9 @@ class ABFP_Academy_Batch_Four_Plugin {
 		// new Custom_Columns();
 		// new ABFP_Post_type();
 		// new ABFP_Metabox();
-		new ABFP_Book_Reader();
+		// new ABFP_Book_Reader();
 
-		new ABFP_Enqueue();
+		// new ABFP_Enqueue();
 		new ABFP_Shortcode();
 	}
 
