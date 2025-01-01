@@ -65,6 +65,7 @@ class ABFP_Academy_Batch_Four_Plugin {
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Book_Reader.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Enqueue.php';
 		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Shortcode.php';
+		require_once ABFP_PLUGIN_DIR_PATH . 'includes/Settings.php';
 
 		// new ABFP_Admin_Menu();
 		// new Custom_Columns();
@@ -74,6 +75,7 @@ class ABFP_Academy_Batch_Four_Plugin {
 
 		// new ABFP_Enqueue();
 		new ABFP_Shortcode();
+		new ABFP_Settings();
 	}
 
 	private function define_constants() {
