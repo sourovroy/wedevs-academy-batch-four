@@ -3,9 +3,10 @@
 class ABFP_Shortcode {
 
 	public function __construct() {
-		add_shortcode( 'show_page_qr', array( $this, 'show_page_qr' ) );
-		add_shortcode( 'query_posts', array( $this, 'query_posts' ) );
-		add_shortcode( 'search_form', array( $this, 'search_form' ) );
+		// add_shortcode( 'show_page_qr', array( $this, 'show_page_qr' ) );
+		// add_shortcode( 'query_posts', array( $this, 'query_posts' ) );
+		// add_shortcode( 'search_form', array( $this, 'search_form' ) );
+		add_shortcode( 'ajax_post_search', array( $this, 'ajax_post_search' ) );
 	}
 
 	public function show_page_qr() {
@@ -101,6 +102,26 @@ class ABFP_Shortcode {
 
 		return ob_get_clean();
 	}
-}
 
-// "><script>alert('something');</script>
+	public function ajax_post_search() {
+		wp_enqueue_script( 'post-search' );
+
+		$terms = get_terms( array(
+			'taxonomy'   => 'category',
+		) );
+
+		ob_start();
+		?>
+			<div>
+				<select id="post-search-category-select">
+					<option value="0">Choose Category</option>
+					<?php foreach ( $terms as $term ) : ?>
+					<option value="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			<div id="ajax-post-search-items">Searching...</div>
+		<?php
+		return ob_get_clean();
+	}
+}
