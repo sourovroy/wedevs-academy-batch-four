@@ -1,0 +1,16 @@
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/settings/main.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+.abfp-settings-menu {
+  margin: 0;
+  padding: 30px 0 0 0;
+}
+.abfp-settings-menu li {
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 18px;
+}
+
+.abfp-pages-container {
+  padding-top: 30px;
+}

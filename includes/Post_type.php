@@ -159,7 +159,7 @@ class ABFP_Post_type {
 			'abfp-custom-meta-box',
 			'Our Custom Metabox',
 			array( $this, 'custom_meta_box_callback' ),
-			array('post', 'book' ),
+			array('post', 'book' )
 		);
 	}
 

@@ -1,0 +1,18 @@
+{
+  "name": "academy-batch-four",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "wp-scripts start assets/settings/main.js --output-path=assets/build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.8.1",
+    "react-router-dom": "^6.28.1"
+  }
+}
